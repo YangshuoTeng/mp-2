@@ -3,15 +3,22 @@ import {useEffect, useState} from "react";
 import styled from "styled-components";
 import {Fields} from "../interfaces/Fields.ts";
 
-
-export default function ArtContent() {
-
-    const ParentDiv = styled.div`
+const ParentDiv = styled.div`
         width: 80vw;
         margin: auto;
         border: 5px rebeccapurple solid;
     `;
 
+const StyledInput = styled.input`
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%;
+`;
+
+export default function ArtContent() {
     const [numFields, setNumField] = useState(5);
     const [fields, setFields] = useState<Fields[]>([]);
 
@@ -26,23 +33,15 @@ export default function ArtContent() {
             .catch((e)=>console.log('this error happened:' + e));
     },[numFields])
 
-const BoxDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: 0 10%;
-;
-    
-`
     return (
-        <BoxDiv>
-            <input
-                type="number"
-                placeholder="Enter number of fields"
+        <ParentDiv>
+            <StyledInput
+                type={"number"}
+                placeholder={"Enter number of fields"}
                 value={numFields}
                 onChange={(e) => setNumField(Number(e.target.value))}/>
-            <ParentDiv>
                 <ArtPreview data={fields}/>
-            </ParentDiv>
-        </BoxDiv>
+        </ParentDiv>
+
     );
 }
